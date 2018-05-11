@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" ng-app="myapp">
+<!-- ng-app所作用的范围是angularJs起效的范围 -->
+<head>
+<title>count the usage of the user in each system</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="stylesheet" href="css/bootstrap-3.2.0/dist/css/bootstrap.min.css" />
+		<script  src="js/jquery2-1-3/jquery.min.js"></script>
+		<script src="js/myutils/identify_code.js"></script>
+    	<script src="js/bootstrap4-1-0/bootstrap.min.js"></script>
+    	
+		<style>
+			 #code{  
+                font-family:Arial;  
+                font-style:italic;  
+                font-weight:bold;  
+                border:0;  
+                letter-spacing:2px;  
+                color:blue;  
+            }
+		</style>
+	</head>
+
+	<body>
+		<br />
+		<br />
+		<br />
+		<br />
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-4">
+					<h3 class="danger text-center">
+						用户登录
+					</h3>
+					<div><p id="errors" class="text-danger">&nbsp;</p></div>
+					<form id="login_form">
+						<div class="form-group">
+						<!--
+                        	作者：offline
+                        	时间：2018-04-23
+                        	描述：密码的pattern
+                        	密码：^[a-zA-Z]\w{5,17}$ 字母开头，长度在6~18之间，只能包含字母、数字和下划线
+							强密码：^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$ 包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间
+                        -->
+                        
+						<input type="text" class="form-control" name="username" id="username"
+							placeholder="请输入用户名（登录名）" required="required" /> 
+						</div>
+						
+						<div class="form-group">
+						<input type="password" class="form-control" name="password" id="password"
+							placeholder="请输入密码" required="required" pattern="^[a-zA-Z]\w{5,17}$" title="字母开头，长度在6~18之间，只能包含字母、数字和下划线"/> 
+						</div>
+						
+						<div>  
+					        <input type = "text" id = "input" value="" />  
+					        <input type = "button" id="code" onclick="createCode()"/>  
+					        <input class = "hidden" value = "验证" onclick = "validate()"/>  
+					    </div> 
+					    
+					    <div class="checkbox">
+							<label>
+								<input type="checkbox" /> 记住密码
+							</label>
+						</div>
+					    
+					    <div class="form-group">
+						    <a href="/register_page">
+						    <span id="register_btn" class="btn btn-danger btn-block btn-flat">
+								注 册
+							</span>
+							</a>
+						</div>
+						
+						<div class="form-group">
+							<button id="submit_btn1"  class="btn btn-danger btn-block btn-flat">
+								登  录
+							</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-4">
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

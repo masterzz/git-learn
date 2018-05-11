@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" ng-app="myapp">
+<head>
+<title>count the usage of the user in each system</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link href="css/style.css" rel="stylesheet"/>
+<script  src="js/jquery2-1-3/jquery.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap-3.2.0/dist/css/bootstrap.min.css" />
+<script src="js/bootstrap4-1-0/bootstrap.min.js"></script>
+
+</head>
+<body th:fragment="gwUserCount">
+	<!-- th:text  用来将内容输出到所在标签的body中。
+	 ${param.x} 返回名为x 的 request参数。（可能有多个值）
+     ${session.x} 返回名为x的Session参数。
+     ${application.x} 返回名为 servlet context 的参数。
+     
+     #｛home.welcome｝  访问数据
+ -->
+	<!-- <p th:text="${logs}"></p> -->
+	<form action="/userCount/search" method="post">
+		<div class="container-fluid">
+			<div class="row"></div>
+			<!--search line -->
+			<div class="row">
+				<div class="col-lg-6">
+
+					<div class="input-group">
+						<input name="search" type="text" class="form-control" /> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="submit">Go!</button>
+						</span>
+					</div>
+
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<div class="row">
+				<hr />
+			</div>
+
+			<!--define the conditions of search -->
+			<div class="row">
+				<div class="col-sm-2 city">
+					<div class="input-group">
+						<label class="input-group-addon">city</label> <select name="city"
+							class="input-group">
+							<option></option>
+							<span th:each="city : ${cities}">
+								<option th:selected="${scity} == ${city}" th:text="${city}">
+								</option>
+						</span>
+						</select>
+					</div>
+				</div>
+
+				<div class="col-sm-3 sysname">
+					<div class="input-group">
+						<label class="input-group-addon">sysname</label> <select
+							name="sysname" class="input-group">
+							<option></option>
+							<span th:each="sysname,iterStat : ${sysnames}">
+								<option th:selected="${ssysname}==${sysname}"
+									th:text="${sysname}"></option>
+						</span>
+						</select>
+					</div>
+
+				</div>
+				<div class="col-sm-3 time">
+					<div>
+						<input type="date" name="beginTime"
+							th:value="${sbeginTime!=null}?${sbeginTime}" /> <label>到</label>
+						<input type="date" name="endTime"
+							th:value="${sendTime!=null}?${sendTime}" />
+					</div>
+				</div>
+				<div class="col-sm-1 searchButton">查询</div>
+			</div>
+
+			<!--table -->
+			<h2 class="sub-header">查询结果：</h2>
+			<div class="table-bordered">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>city</th>
+							<th>sysname</th>
+							<th>userName</th>
+							<th>time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="log,iterStat : ${logs}">
+							<td th:text="${iterStat.index + 1}"></td>
+							<td th:text="${log.city}"></td>
+							<td th:text="${log.sysname}"></td>
+							<td th:text="${log.username}"></td>
+							<td th:text="${#calendars.format(log.loginTime, 'yyyy-MM-dd')}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</form>
+
+</body>
+</html>

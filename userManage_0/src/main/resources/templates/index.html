@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+	
+	
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Bootstrap 4, from LayoutIt!</title>
+
+		<meta name="description" content="Source code generated using layoutit.com">
+		<meta name="author" content="LayoutIt!">
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<script type="text/javascript" src="js/echarts.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="container-fluid" style="background:#5CB85C;">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link active" href="#">首页</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">领导专区</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link disabled" href="#">留言板</a>
+						</li>
+						<li class="nav-item dropdown ml-md-auto">
+							<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">下拉列表</a>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">第一页</a>
+								<a class="dropdown-item" href="#">第二页</a>
+								<a class="dropdown-item" href="#">第三页</a>
+								<div class="dropdown-divider">
+								</div>
+								<a class="dropdown-item" href="#">分开的第四页</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="divcss5" style="border:1px solid deepskyblue;
+					font-size: 30px;text-align: center;">
+					<strong>广东联通一键登录管理系统</strong>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>
+										*
+									</th>
+									<th>
+										省本部及地市
+									</th>
+									<th>
+										部门
+									</th>
+									<th>
+										月份
+									</th>
+									<th>
+										当月累计登录数
+									</th>
+									<th>
+										Status
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										1
+									</td>
+									<td>
+										省本部
+									</td>
+									<td>
+										市场部
+									</td>
+									<td>
+										201802
+									</td>
+									<td>
+										201802
+									</td>
+									<td>
+										201802
+									</td>
+								</tr>
+								<tr class="table-active">
+									<td>
+										2
+									</td>
+									<td>
+										广州
+									</td>
+									<td>
+										市场部
+									</td>
+									<td>
+										201803
+									</td>
+									<td>
+										201803
+									</td>
+									<td>
+										201803
+									</td>
+								</tr>
+								<tr class="table-success">
+									<td>
+										3
+									</td>
+									<td>
+										深圳
+									</td>
+									<td>
+										销售部
+									</td>
+									<td>
+										201803
+									</td>
+									<td>
+										201803
+									</td>
+									<td>
+										201803
+									</td>
+								</tr>
+								<tr class="table-warning">
+									<td>
+										4
+									</td>
+									<td>
+										东莞
+									</td>
+									<td>
+										信息化
+									</td>
+									<td>
+										201801
+									</td>
+									<td>
+										201803
+									</td>
+									<td>
+										201803
+									</td>
+								</tr>
+								<tr class="table-danger">
+									<td>
+										5
+									</td>
+									<td>
+										中山
+									</td>
+									<td>
+										互联网
+									</td>
+									<td>
+										201708
+									</td>
+									<td>
+										201803
+									</td>
+									<td>
+										201803
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-4">
+					<div id="chartmain" style="width:600px; height: 400px;">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+			</div>
+		</div>
+		<script type="text/javascript">
+			//指定图标的配置和数据
+			var option = {
+				title: {
+					text: ''
+				},
+				tooltip: {},
+				legend: {
+					data: ['用户来源']
+				},
+				xAxis: {
+					data: ["1月", "2月", "3月", "4月", "5月"]
+				},
+				yAxis: {
+
+				},
+				series: [{
+					name: '访问量',
+					type: 'line',
+					data: [500, 200, 360, 100, 600]
+				}]
+			};
+			//初始化echarts实例
+			var myChart = echarts.init(document.getElementById('chartmain'));
+
+			//使用制定的配置项和数据显示图表
+			myChart.setOption(option);
+		</script>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/scripts.js"></script>
+	</body>
+
+</html>

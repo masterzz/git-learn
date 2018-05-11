@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" ng-app="myapp">
+<head>
+<title>count the usage of the user in each system</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap-3.2.0/dist/css/bootstrap.min.css" />
+<script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.3.15/angular.min.js"></script>
+
+</head>
+<body>
+<form action="/userCount/search" method="post">
+		<div class="container-fluid">
+			<div class="row"></div>
+			<!--search line -->
+			<div class="row">
+				<div class="col-lg-6">
+
+					<div class="input-group">
+						<input name="search" type="text" class="form-control" /> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="submit">Go!</button>
+						</span>
+					</div>
+
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<div class="row">
+				<hr />
+			</div>
+			
+			<!--define the conditions of search -->
+			<div class="row">
+				<div class="col-sm-3 time">
+					<div>
+						<input type="date" name="beginTime" th:value="${sbeginTime!=null}?${sbeginTime}"/> 
+						<label>到</label> 
+						<input type="date" name="endTime" th:value="${sendTime!=null}?${sendTime}"/>
+					</div>
+				</div>
+				<div class="col-sm-1 searchButton">查询</div>
+			</div>
+
+			<!--table -->
+			<h2 class="sub-header">查询结果：</h2>
+			<div class="table-bordered">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>sysname_en</th>
+							<th>sysname_cn</th>
+							<th>person_in_charge</th>
+							<th>systime</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="sys_log_file,iterStat : ${sys_log_files}">
+							<td th:text="${iterStat.index + 1}"></td>
+							<td th:text="${sys_log_file.sysname_en}"></td>
+							<td th:text="${sys_log_file.sysname_cn}"></td>
+							<td th:text="${sys_log_file.person_in_charge}"></td>
+							<td th:text="${#calendars.format(sys_log_file.systime, 'yyyy-MM-dd')}"></td>
+						</tr> 
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</form>
+
+</body>
+</html>

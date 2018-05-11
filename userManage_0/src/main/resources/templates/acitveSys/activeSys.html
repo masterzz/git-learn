@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" 
+	               xmlns:ng="http://angularjs.org" ng-app="myapp">
+<head>
+    <title>count the usage of the user in each system</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" href="../../static/js/bootstrap4-1-0/bootstrap.min.css"/>
+    <script  src="../../static/js/jquery2-1-3/jquery.min.js"></script>
+    <script src="../../static/js/bootstrap4-1-0/bootstrap.min.js"></script>
+    <script src="../../static/js/angular1-5-8/angular.min.js"></script>
+    <style>
+    	.gw-inddexname{
+    		color:#1C7430;
+    		font-family: "微软雅黑";
+    		font-weight: 700;
+    		
+    	}
+    </style>
+    
+</head>
+<body class="" th:fragment="gwActivSys">
+	<div class="container">
+		<!--查询条件-->
+		
+		<div class="row">
+			<form  >
+				<div class="row" >
+					<div class="col-md-6"><label>系统分类：</label><input type="text"></input></div>
+					<div class="col-md-6"><label>系统分类：</label><input type="text"></input></div>
+				</div>
+				<br />
+				
+				<div class="row" >
+					<div class="col-md-6"><label>开始时间：</label><input type="date"></input></div>
+					<div class="col-md-6"><label>结束时间：</label><input type="date"></input></div>
+				</div>		
+			</form>
+			
+		</div>
+		<!--/查询条件-->
+		
+		
+		<!--活跃系统-->
+			<div><h3 style="font-weight: 20px;font-family: '微软雅黑';">系统账号使用情况</h3></div>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									#
+								</th>
+								<th>
+									系统分类
+								</th>
+								<th>
+									系统名
+								</th>
+								<th>
+									当前在线用户数
+								</th>
+								<th>
+									当月累计登陆人次
+								</th>
+								<th>
+									累计登陆人次
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									1
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									01/04/2012
+								</td>
+								<td>
+									Default
+								</td>
+							</tr>
+							<tr class="table-active">
+								<td>
+									1
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									01/04/2012
+								</td>
+								<td>
+									Approved
+								</td>
+							</tr>
+							<tr class="table-success">
+								<td>
+									2
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									02/04/2012
+								</td>
+								<td>
+									Declined
+								</td>
+							</tr>
+							<tr class="table-warning">
+								<td>
+									3
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									03/04/2012
+								</td>
+								<td>
+									Pending
+								</td>
+							</tr>
+							<tr class="table-danger">
+								<td>
+									4
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									04/04/2012
+								</td>
+								<td>
+									Call in to confirm
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row" >&nbsp;&nbsp;&nbsp;<a href="#">》<span style="font-size:x-large;">more</span></a></div>
+		<!--/活跃系统-->
+		<br />
+		<hr />
+		<!--当前系统的账号使用情况-->
+		<!--选定要查询的指标-->
+		<div><h3>定义</h3></div>
+		<div>
+			<form>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname" >
+						<input type="checkbox" >1.活跃用户数 </input>
+					</div>
+					<div class="col-md-9">
+						<h6>对于活跃用户，每家定义各有不同.7天内有3天登陆过账号的便可成为活跃用户。</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >2.新增活跃用户数 </input>
+					</div>
+					<div class="col-md-9">
+						<h6>首次上线游戏的用户数 。</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >3.流失活跃用户数 </input>
+					</div>
+					<div class="col-md-9">
+						<h6>上期(7-14天)有过登陆，在本期(最近14天)未登陆的用户数。</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >4.回流活跃用户数 </input>
+					</div>
+					<div class="col-md-9">
+						<h6>上期(7-14天)未登陆，在本期(最近7天)有登陆的用户数。。</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >5.活跃用户流失率 </input>
+					</div>
+					<div class="col-md-9">
+						<h6>(公式：(本月流失用户/上月活跃用户)*100%)。</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >6.活跃用户充值率 </input>
+					</div>
+					<div class="col-md-9">
+						<h6>(公式：(本月活跃付费用户/本月活跃用户)*100%)</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >7.活跃用户在线时长(单位/小时) </input>
+					</div>
+					<div class="col-md-9">
+						<h6>(公式：当期(7天)所有活跃用户在线时长总和/当期(7天)活跃用户数)</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox">8.付费用户在线时长(单位/小时) </input>
+					</div>
+					<div class="col-md-9">
+						<h6>(公式：当期(7天)所有付费用户在线时长总和/当期(7天)付费用户数)。</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >9.新增活跃用户充值率</input>
+					</div>
+					<div class="col-md-9">
+						<h6>(公式：(本月内有充值的新增登录用户/本月总新增登录用户)*100%) </h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3  gw-inddexname">
+						<input type="checkbox" >10.新增活跃用户高活跃率： </input>
+					</div>
+					<div class="col-md-9">
+						<h6>(公式：(本月新增登陆用户中的高活跃用户数/本月新增登陆用户数)*100%) </h6>
+					</div>
+				</div>
+			</form>				
+		</div>
+		<!--/选定要查询的指标-->
+		
+		<!--查询结果-->
+		<!--/查询结果-->
+		
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							指标名
+						</th>
+						<th>
+							指标值
+						</th>
+					</tr>				
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							活跃用户数
+						</td>
+						<td>32</td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+		<!--/-->
+		
+		
+		<!--/-->
+	</div>
+
+
+
+</body>
+</html>
