@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unioncom.cn.bean.SystemLogFile;
@@ -114,13 +115,17 @@ public class UserController {
 
 	// 提交请求
 	@RequestMapping("/login_submit")
-	public String login_submit(HttpServletRequest request) {
+	public String login_submit(HttpServletRequest request, HttpSession session) {
 		// 获取用户名、密码
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		User user = userService.findByNameAndPassword(username, password);
-		if (user != null)
+		if (user != null) {
+			System.out.println("add session's attributes");
+			session.setAttribute("username", username);
 			return "redirect:/home_page";
+		}
+			
 		else
 			return "login";
 	}
