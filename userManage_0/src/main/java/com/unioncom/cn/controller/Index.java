@@ -2,9 +2,7 @@ package com.unioncom.cn.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unioncom.cn.bean.Contions;
 import com.unioncom.cn.bean.LoginLog;
 import com.unioncom.cn.convert.StringToDateConverter;
 import com.unioncom.cn.service.LoginLogService;
+import com.unioncom.cn.utils.MyPageHelper;
 
 /**
  * Created by Administrator on 2018/1/29.
@@ -74,7 +72,9 @@ public class Index {
 	public String userCount(Model model) {
 		// 找到所有记录
 		List<LoginLog> logs = LoginLogService.getAll();
-		model.addAttribute("logs", logs);
+		MyPageHelper<LoginLog> pageHelper = new MyPageHelper<LoginLog>(logs);
+		List<LoginLog> frontLogs = pageHelper.getPage(1, 50);
+		model.addAttribute("logs", frontLogs);
 		addDistinctAtt(model);
 		return "detail/menuDetail";
 	}
@@ -109,7 +109,9 @@ public class Index {
 		// System.out.println(key);
 		// 根据各属性来搜索
 		List<LoginLog> conditions_logs = LoginLogService.findByConditions(key, city, sysname, beginTime, endTime);
-		model.addAttribute("logs", conditions_logs);
+		MyPageHelper<LoginLog> pageHelper = new MyPageHelper<LoginLog>(conditions_logs);
+		List<LoginLog> frontLogs = pageHelper.getPage(1, 50);
+		model.addAttribute("logs", frontLogs);
 		addDistinctAtt(model);
 		addSelectedAtt(model, city, sysname, request.getParameter("beginTime"), request.getParameter("endTime"));
 		return "detail/menuDetail";
