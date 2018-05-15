@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" ng-app="myapp">
+<head>
+    <title>count the usage of the user in each system</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-3.2.0/dist/css/bootstrap.min.css"/>
+    <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../static/js/angular1-5-8/angular.min.js"></script>
+
+</head>
+
+<body>
+
+
+<div class="container-fluid">
+    <div class="row"> </div>
+    <!--search line -->
+    <div class="row">
+        <form th:action="@{/search}" >   <!---/search, 原来SpringMVC在action的跳转时，会自动加上你当前页面的根目录-->
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" th:name="searchKey"/>
+                    <span class="input-group-btn">
+                        <input class="input-group" type="submit"/>
+                        <!--button class="btn btn-default" type="button" >Go!</button-->
+                     </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </form>
+    </div>
+    <div class="row">
+        <hr/>
+    </div>
+
+    <!--define the conditions of search -->
+    <div class="row">
+        <form  th:action="/conditionResarch" th:object="conditions">
+            <div class="col-sm-2 city">
+                <div class="input-group">
+                    <label class="input-group-addon" >city</label>
+                    <select class="input-group" th:="city">
+                        <option th:selected="selected">choose</option>
+                        <option value="1">one</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-3 sysname">
+                <div class="input-group">
+                    <label class="input-group-addon">sysname</label>
+                    <select class="input-group" th:name="sysname">
+                        <option selected="selected">zhizhugongju</option>
+                        <option value="1">maps</option>
+                        <option value="2">woIndex</option>
+                    </select>
+
+                </div>
+
+            </div>
+            <div class="col-sm-3 time">
+                <div>
+                    <input type="date" name="beginTime" value="2018-2-1"/>
+                    <label>到</label>
+                    <input type="date"  name="endTime" value="2018-2-12"/>
+                </div>
+            </div>
+            <div class="col-sm-1 searchButton"  >查询</div>
+        </form>
+    </div>
+
+
+
+    <!--table -->
+    <h2 class="sub-header">查询结果：</h2>
+    <div class="table-bordered">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>city</th>
+                <th>sysName</th>
+                <th>userName</th>
+                <th>time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>10</td>
+                <td>guangzhou</td>
+                <td>zhizhugongju</td>
+                <td>weiguo</td>
+                <td>20170109</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>guangzhou</td>
+                <td>map</td>
+                <td>weiguo</td>
+                <td>20170109</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+</body>
+</html>

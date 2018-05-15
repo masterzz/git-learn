@@ -131,7 +131,9 @@ public class Index {
 	//添加选项中的细项
 	private void addDistinctAtt(Model model, HttpServletRequest request) {
 		//将选择的细项再添加到model中
-		
+		String default_city = request.getParameter("default_city");
+		default_city = default_city == null ? "":default_city;
+		model.addAttribute("default_city", default_city);
 		
 		List<LoginLog> logs = LoginLogService.getAll();
 		List<String> cities = new ArrayList<String>();

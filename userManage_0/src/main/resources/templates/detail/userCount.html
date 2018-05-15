@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <script  src="js/jquery2-1-3/jquery.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap-3.2.0/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-3.2.0/dist/css/bootstrap.min.css" />
 <script src="css/bootstrap-3.2.0/dist/js/bootstrap.min.js"></script>
 
 </head>
@@ -49,13 +49,14 @@
 					<div class="input-group">
 						<label class="input-group-addon">city</label> <select name="city"
 							class="input-group">
-							<option></option>
+							<option th:value="${default_city}"></option>
 							<span th:each="city : ${cities}">
 								<option th:selected="${scity} == ${city}" th:text="${city}">
 								</option>
 						</span>
 						</select>
 					</div>
+					
 				</div>
 
 				<div class="col-sm-3 sysname">

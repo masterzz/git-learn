@@ -20,11 +20,11 @@ public class MyPageHelper<T> {
 	public List<T> getPage(int page, int rows) {
 		this.page = page;
 		this.rows = rows;
-		this.length = (int) Math.ceil(list.size() / rows);
+		this.length = (int) Math.ceil(list.size() / (double)rows);
 		//新建一个list，用来存放第page页数据
 		List<T> newlist = new ArrayList<T>();
 		//page小于最后一页时
-		if(page <length) {
+		if(page < length) {
 			for(int i = 0; i < rows; i++) {
 				newlist.add(list.get((page-1) * rows + i));
 			}

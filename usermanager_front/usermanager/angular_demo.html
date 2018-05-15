@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap-3.2.0/dist/css/bootstrap.min.css" />
+	</head>
+
+	<!--
+    	作者：offline
+    	时间：2018-04-19
+    	描述：如果想使用angular表达式，必须有 ng-app
+    -->
+	<body ng-app="">
+		{{ 5 * 4}}
+		
+		{{ "值："  + 5 * 5 }}
+		
+		{{ 5 > 4 ? "真" : "假"}}
+		
+		<div ng-init="name='yzdx';age=30;arr=['a', 'b', 'c']">
+			{{name}}
+			{{age}}
+			{{arr}}
+			<h1 ng-bind="name"></h1>
+			<!-- 不会显示花括号-->
+			<h1>{{name}}</h1>
+			
+			<input type="text" ng-model="kiss"/>
+			<h1>{{kiss}}</h1>
+		</div>
+		
+		<script src="js/jquery2-1-3/jquery.min.js"></script>
+		<script src="js/bootstrap4-1-0/bootstrap.min.js"></script>
+		<script src="js/angular1-3-15/angular.min.js"></script>
+	</body>
+
+</html>
