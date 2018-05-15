@@ -26,13 +26,13 @@ public class MyPageHelper<T> {
 		//page小于最后一页时
 		if(page <length) {
 			for(int i = 0; i < rows; i++) {
-				newlist.add(list.get((page-1) * rows));
+				newlist.add(list.get((page-1) * rows + i));
 			}
 		} 
 		//page等于最后一页时
 		else if(page == length) {
 			for(int i = 0; i < list.size() % rows; i++) {
-				newlist.add(list.get((page-1) * rows));
+				newlist.add(list.get((page-1) * rows + i));
 			}
 		}
 		

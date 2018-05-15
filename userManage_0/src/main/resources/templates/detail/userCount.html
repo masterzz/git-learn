@@ -6,10 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link href="css/style.css" rel="stylesheet"/>
 <script  src="js/jquery2-1-3/jquery.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap-3.2.0/dist/css/bootstrap.min.css" />
-<script src="js/bootstrap4-1-0/bootstrap.min.js"></script>
+<script src="css/bootstrap-3.2.0/dist/js/bootstrap.min.js"></script>
 
 </head>
 <body th:fragment="gwUserCount">
@@ -21,7 +20,8 @@
      #｛home.welcome｝  访问数据
  -->
 	<!-- <p th:text="${logs}"></p> -->
-	<form action="/userCount/search" method="post">
+	
+	<form action="/userCount" method="post">
 		<div class="container-fluid">
 			<div class="row"></div>
 			<!--search line -->
@@ -29,7 +29,7 @@
 				<div class="col-lg-6">
 
 					<div class="input-group">
-						<input name="search" type="text" class="form-control" /> <span
+						<input name="search" type="text" class="form-control" th:value="${search}"/> <span
 							class="input-group-btn">
 							<button class="btn btn-default" type="submit">Go!</button>
 						</span>
@@ -107,6 +107,22 @@
 				</table>
 			</div>
 
+		</div>
+		
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<ul id="page" class="pagination pagination-lg">
+				    <li><a th:href="@{'userCount?page='+ ${page==null?1:(page==1?1:page-1)}}">&laquo;</a></li>
+				    <li><a href="?page=1">1</a></li>
+				    <li><a href="?page=2">2</a></li>
+				    <li><a href="?page=3">3</a></li>
+				    <li class="disabled"><a>...</a></li>
+				    <li><a th:href="@{'userCount?page='+ ${page_length}}">最后一页</a></li>
+				    <li><a th:href="@{'userCount?page='+ ${page==null?1: (page >= page_length? page_length : (page+1))}}">&raquo;</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4"></div>
 		</div>
 	</form>
 

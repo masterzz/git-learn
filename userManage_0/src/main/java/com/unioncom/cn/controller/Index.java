@@ -18,8 +18,7 @@ import com.unioncom.cn.service.LoginLogService;
 import com.unioncom.cn.utils.MyPageHelper;
 
 /**
- * Created by Administrator on 2018/1/29.
- * 该类包含header的各类链接
+ * Created by Administrator on 2018/1/29. 该类包含header的各类链接
  */
 
 @Controller
@@ -31,32 +30,32 @@ public class Index {
 	public String index() {
 		return "index";
 	}
-	
+
 	@RequestMapping("/3")
 	public String userManage() {
 		return "userCount";
 	}
-	
+
 	@RequestMapping("/4")
 	public String test() {
 		return "test";
 	}
-	
+
 	@RequestMapping("/actSys")
 	public String menuActSys() {
 		return "acitveSys/menuActSys";
 	}
-	
+
 	@RequestMapping("/actUser")
 	public String menuActUser() {
 		return "activeUser/menuActUser";
 	}
-	
+
 	@RequestMapping("/exceptionBorad")
 	public String exceptionBorad() {
 		return "exception/menuException";
 	}
-	
+
 	@RequestMapping("/search1")
 	public String searchByConditions(Contions contions) {
 		String city = contions.getCity();
@@ -68,18 +67,72 @@ public class Index {
 		return "d";
 	}
 
-	@RequestMapping("userCount")
-	public String userCount(Model model) {
+	/*@RequestMapping("userCount")
+	public String userCount(Model model, HttpServletRequest request) {
 		// 找到所有记录
 		List<LoginLog> logs = LoginLogService.getAll();
+		// 进行分页
 		MyPageHelper<LoginLog> pageHelper = new MyPageHelper<LoginLog>(logs);
-		List<LoginLog> frontLogs = pageHelper.getPage(1, 50);
+		String str_page = request.getParameter("page");
+		int page = Integer.parseInt(str_page == null ? "1" : str_page);
+		List<LoginLog> frontLogs = pageHelper.getPage(page, 20);
+		model.addAttribute("page", page);
+		model.addAttribute("page_length", pageHelper.getLength());
 		model.addAttribute("logs", frontLogs);
+		// 增加其他参数
 		addDistinctAtt(model);
 		return "detail/menuDetail";
-	}
+	}*/
 
-	private void addDistinctAtt(Model model) {
+	@RequestMapping("userCount")
+	public String search(Model model, HttpServletRequest request) {
+		// validate校验前台数据，并将搜索关键字放入Map中
+		// Map<String, String> keys = validate(request);
+		// 找到搜索记录
+		String key = request.getParameter("search");
+		String city = request.getParameter("city");
+		String sysname = request.getParameter("sysname");
+
+		// 对空值进行处理
+		key = key == null ? "" : key;
+		city = city == null ? "" : city;
+		sysname = sysname == null ? "" : city;
+		String str_beginTime = request.getParameter("beginTime");
+		String str_endTime = request.getParameter("endTime");
+		str_beginTime = str_beginTime == null ? "1990-01-01" : str_beginTime;
+		str_endTime = str_endTime == null ? "2100-12-31" : str_endTime;
+		
+		model.addAttribute("search", key);
+		model.addAttribute("city", city);
+		model.addAttribute("sysname", sysname);
+		model.addAttribute("beginTime", str_beginTime);
+		model.addAttribute("endTime", str_endTime);
+		
+		// 获取时间
+		StringToDateConverter converter = new StringToDateConverter("yyyy-MM-dd");
+		Date beginTime = converter.convert(str_beginTime);
+		Date endTime = converter.convert(str_endTime);
+		// System.out.println(key);
+		// 根据各属性来搜索
+		List<LoginLog> conditions_logs = LoginLogService.findByConditions(key, city, sysname, beginTime, endTime);
+		// 进行分页
+		MyPageHelper<LoginLog> pageHelper = new MyPageHelper<LoginLog>(conditions_logs);
+		String str_page = request.getParameter("page");
+		int page = Integer.parseInt(str_page == null ? "1" : str_page);
+		List<LoginLog> frontLogs = pageHelper.getPage(page, 20);
+		model.addAttribute("page", page);
+		model.addAttribute("page_length", pageHelper.getLength());
+		model.addAttribute("logs", frontLogs);
+		addDistinctAtt(model,request);
+		addSelectedAtt(model, city, sysname, request.getParameter("beginTime"), request.getParameter("endTime"));
+		return "detail/menuDetail";
+	}
+	
+	//添加选项中的细项
+	private void addDistinctAtt(Model model, HttpServletRequest request) {
+		//将选择的细项再添加到model中
+		
+		
 		List<LoginLog> logs = LoginLogService.getAll();
 		List<String> cities = new ArrayList<String>();
 		List<String> sysnames = new ArrayList<String>();
@@ -93,37 +146,13 @@ public class Index {
 		model.addAttribute("sysnames", sysnames);
 	}
 
-	@RequestMapping("userCount/search")
-	public String search(Model model, HttpServletRequest request) {
-		// validate校验前台数据，并将搜索关键字放入Map中
-		// Map<String, String> keys = validate(request);
-		// 找到搜索记录
-		String key = request.getParameter("search");
-		String city = request.getParameter("city");
-		String sysname = request.getParameter("sysname");
-
-		// 获取时间
-		StringToDateConverter converter = new StringToDateConverter("yyyy-MM-dd");
-		Date beginTime = converter.convert(request.getParameter("beginTime"));
-		Date endTime = converter.convert(request.getParameter("endTime"));
-		// System.out.println(key);
-		// 根据各属性来搜索
-		List<LoginLog> conditions_logs = LoginLogService.findByConditions(key, city, sysname, beginTime, endTime);
-		MyPageHelper<LoginLog> pageHelper = new MyPageHelper<LoginLog>(conditions_logs);
-		List<LoginLog> frontLogs = pageHelper.getPage(1, 50);
-		model.addAttribute("logs", frontLogs);
-		addDistinctAtt(model);
-		addSelectedAtt(model, city, sysname, request.getParameter("beginTime"), request.getParameter("endTime"));
-		return "detail/menuDetail";
-	}
-
 	private void addSelectedAtt(Model model, String city, String sysname, String beginTime, String endTime) {
 		model.addAttribute("scity", city);
 		model.addAttribute("ssysname", sysname);
 		model.addAttribute("sbeginTime", beginTime);
 		model.addAttribute("sendTime", endTime);
 	}
-	
+
 	@RequestMapping("getUser")
 	public boolean findUser() {
 		return false;
