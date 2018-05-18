@@ -16,6 +16,7 @@ import com.unioncom.cn.bean.LoginLog;
 import com.unioncom.cn.convert.StringToDateConverter;
 import com.unioncom.cn.service.LoginLogService;
 import com.unioncom.cn.utils.MyPageHelper;
+import com.unioncom.cn.utils.StringUtils;
 
 /**
  * Created by Administrator on 2018/1/29. 该类包含header的各类链接
@@ -87,22 +88,16 @@ public class Index {
 	@RequestMapping("userCount")
 	public String search(Model model, HttpServletRequest request) {
 		// validate校验前台数据，并将搜索关键字放入Map中
-		// Map<String, String> keys = validate(request);
+		// Map<String, String> searchs = validate(request);
 		// 找到搜索记录
-		String key = request.getParameter("search");
-		String city = request.getParameter("city");
-		String sysname = request.getParameter("sysname");
+		String search = StringUtils.handleEmpty(request.getParameter("search"));
+		String city = StringUtils.handleEmpty(request.getParameter("city"));
+		String sysname = StringUtils.handleEmpty(request.getParameter("sysname"));
 
-		// 对空值进行处理
-		key = key == null ? "" : key;
-		city = city == null ? "" : city;
-		sysname = sysname == null ? "" : city;
-		String str_beginTime = request.getParameter("beginTime");
-		String str_endTime = request.getParameter("endTime");
-		str_beginTime = str_beginTime == null ? "1990-01-01" : str_beginTime;
-		str_endTime = str_endTime == null ? "2100-12-31" : str_endTime;
+		String str_beginTime = StringUtils.handleEmpty(request.getParameter("beginTime"));
+		String str_endTime = StringUtils.handleEmpty(request.getParameter("endTime"));
 		
-		model.addAttribute("search", key);
+		model.addAttribute("search", search);
 		model.addAttribute("city", city);
 		model.addAttribute("sysname", sysname);
 		model.addAttribute("beginTime", str_beginTime);
@@ -112,9 +107,9 @@ public class Index {
 		StringToDateConverter converter = new StringToDateConverter("yyyy-MM-dd");
 		Date beginTime = converter.convert(str_beginTime);
 		Date endTime = converter.convert(str_endTime);
-		// System.out.println(key);
+		// System.out.println(search);
 		// 根据各属性来搜索
-		List<LoginLog> conditions_logs = LoginLogService.findByConditions(key, city, sysname, beginTime, endTime);
+		List<LoginLog> conditions_logs = LoginLogService.findByConditions(search, city, sysname, beginTime, endTime);
 		// 进行分页
 		MyPageHelper<LoginLog> pageHelper = new MyPageHelper<LoginLog>(conditions_logs);
 		String str_page = request.getParameter("page");
@@ -131,9 +126,10 @@ public class Index {
 	//添加选项中的细项
 	private void addDistinctAtt(Model model, HttpServletRequest request) {
 		//将选择的细项再添加到model中
-		String default_city = request.getParameter("default_city");
-		default_city = default_city == null ? "":default_city;
+		String default_city = request.getParameter("city");
 		model.addAttribute("default_city", default_city);
+		String default_sysname = StringUtils.handleEmpty(request.getParameter("default_sysname"));
+		model.addAttribute("default_sysname", default_sysname);		
 		
 		List<LoginLog> logs = LoginLogService.getAll();
 		List<String> cities = new ArrayList<String>();

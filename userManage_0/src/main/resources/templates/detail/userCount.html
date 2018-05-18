@@ -21,7 +21,7 @@
  -->
 	<!-- <p th:text="${logs}"></p> -->
 	
-	<form action="/userCount" method="post">
+	<form id="form" action="/userCount" method="post">
 		<div class="container-fluid">
 			<div class="row"></div>
 			<!--search line -->
@@ -29,7 +29,7 @@
 				<div class="col-lg-6">
 
 					<div class="input-group">
-						<input name="search" type="text" class="form-control" th:value="${search}"/> <span
+						<input name="search" type="text" class="form-control" th:value="${default_search}"/> <span
 							class="input-group-btn">
 							<button class="btn btn-default" type="submit">Go!</button>
 						</span>
@@ -63,7 +63,7 @@
 					<div class="input-group">
 						<label class="input-group-addon">sysname</label> <select
 							name="sysname" class="input-group">
-							<option></option>
+							<option th:value="${default_sysname}"></option>
 							<span th:each="sysname,iterStat : ${sysnames}">
 								<option th:selected="${ssysname}==${sysname}"
 									th:text="${sysname}"></option>
@@ -74,11 +74,20 @@
 				</div>
 				<div class="col-sm-3 time">
 					<div>
-						<input type="date" name="beginTime"
+								
+						<!-- <input type="date" name="beginTime"
 							th:value="${sbeginTime!=null}?${sbeginTime}" /> <label>到</label>
 						<input type="date" name="endTime"
-							th:value="${sendTime!=null}?${sendTime}" />
+							th:value="${sendTime!=null}?${sendTime}" /> -->
 					</div>
+				</div>
+				
+			</div>
+			
+			<div class="row" >
+				<div class="col-md-6">
+					<div class="col-md-6"><label>开始时间：</label><input type="date"></input></div>
+					<div class="col-md-6"><label>结束时间：</label><input type="date"></input></div>
 				</div>
 				<div class="col-sm-1 searchButton">查询</div>
 			</div>
@@ -113,8 +122,9 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
+				<input type="hidden" th:value="${page==null?1:(page==1?1:page-1)}"/>
 				<ul id="page" class="pagination pagination-lg">
-				    <li><a th:href="@{'userCount?page='+ ${page==null?1:(page==1?1:page-1)}}">&laquo;</a></li>
+				    <li id="page_left"><!-- <a th:href="@{'userCount?page='+ ${page==null?1:(page==1?1:page-1)}}"> --> <a >&laquo;</a></li>
 				    <li><a href="?page=1">1</a></li>
 				    <li><a href="?page=2">2</a></li>
 				    <li><a href="?page=3">3</a></li>
