@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.unioncom.cn.bean.Contions;
 import com.unioncom.cn.bean.LoginLog;
+import com.unioncom.cn.bean.SystemLog;
+import com.unioncom.cn.bean.UserLog;
 import com.unioncom.cn.convert.StringToDateConverter;
 import com.unioncom.cn.service.LoginLogService;
+import com.unioncom.cn.service.SystemLogService;
+import com.unioncom.cn.service.UserLogService;
 import com.unioncom.cn.utils.MyPageHelper;
 import com.unioncom.cn.utils.StringUtils;
 
@@ -26,6 +30,10 @@ import com.unioncom.cn.utils.StringUtils;
 public class Index {
 	@Autowired
 	LoginLogService LoginLogService;
+	@Autowired
+	SystemLogService systemLogService;
+	@Autowired
+	UserLogService UserLogService;
 
 	@RequestMapping("/2")
 	public String index() {
@@ -43,12 +51,16 @@ public class Index {
 	}
 
 	@RequestMapping("/actSys")
-	public String menuActSys() {
+	public String menuActSys(Model model, HttpServletRequest request) {
+		List<SystemLog> systemLogs = systemLogService.getAll();
+		model.addAttribute("systemLogs", systemLogs);
 		return "acitveSys/menuActSys";
 	}
 
 	@RequestMapping("/actUser")
-	public String menuActUser() {
+	public String menuActUser(Model model, HttpServletRequest request) {
+		List<UserLog> userLogs = UserLogService.getAll();
+		model.addAttribute("userLogs", userLogs);
 		return "activeUser/menuActUser";
 	}
 

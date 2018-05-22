@@ -29,7 +29,7 @@
 			<form  >
 				<div class="row" >
 					<div class="col-md-6"><label>系统分类：</label><input type="text"></input></div>
-					<div class="col-md-6"><label>系统分类：</label><input type="text"></input></div>
+					<div class="col-md-6"><label>系统名称：</label><input type="text"></input></div>
 				</div>
 				<br />
 				
@@ -71,75 +71,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									1
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									01/04/2012
-								</td>
-								<td>
-									Default
-								</td>
-							</tr>
-							<tr class="table-active">
-								<td>
-									1
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									01/04/2012
-								</td>
-								<td>
-									Approved
-								</td>
-							</tr>
-							<tr class="table-success">
-								<td>
-									2
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									02/04/2012
-								</td>
-								<td>
-									Declined
-								</td>
-							</tr>
-							<tr class="table-warning">
-								<td>
-									3
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									03/04/2012
-								</td>
-								<td>
-									Pending
-								</td>
-							</tr>
-							<tr class="table-danger">
-								<td>
-									4
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									04/04/2012
-								</td>
-								<td>
-									Call in to confirm
-								</td>
+							<tr th:each="systemLog,iterStat : ${systemLogs}">
+								<td th:text="${iterStat.index + 1}"></td>
+								<td th:text="${systemLog.sysClass}"></td>
+								<td th:text="${systemLog.sysname}"></td>
+								<td th:text="${systemLog.online_num}"></td>
+								<td th:text="${systemLog.month_accum_login_num}"></td>
+								<td th:text="${systemLog.accum_login_num}"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -156,82 +94,42 @@
 			<form>
 				<div class="row">
 					<div class="col-md-3  gw-inddexname" >
-						<input type="checkbox" >1.活跃用户数 </input>
+						<input type="checkbox" >1.系统分类 </input>
 					</div>
 					<div class="col-md-9">
-						<h6>对于活跃用户，每家定义各有不同.7天内有3天登陆过账号的便可成为活跃用户。</h6>
+						<h6></h6>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >2.新增活跃用户数 </input>
+						<input type="checkbox" >2.系统名</input>
 					</div>
 					<div class="col-md-9">
-						<h6>首次上线游戏的用户数 。</h6>
+						<h6></h6>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >3.流失活跃用户数 </input>
+						<input type="checkbox" >3.当前在线用户数 </input>
 					</div>
 					<div class="col-md-9">
-						<h6>上期(7-14天)有过登陆，在本期(最近14天)未登陆的用户数。</h6>
+						<h6></h6>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >4.回流活跃用户数 </input>
+						<input type="checkbox" >4.当月累计登陆人次 </input>
 					</div>
 					<div class="col-md-9">
-						<h6>上期(7-14天)未登陆，在本期(最近7天)有登陆的用户数。。</h6>
+						<h6></h6>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >5.活跃用户流失率 </input>
+						<input type="checkbox" >5.累计登陆人次 </input>
 					</div>
 					<div class="col-md-9">
-						<h6>(公式：(本月流失用户/上月活跃用户)*100%)。</h6>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >6.活跃用户充值率 </input>
-					</div>
-					<div class="col-md-9">
-						<h6>(公式：(本月活跃付费用户/本月活跃用户)*100%)</h6>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >7.活跃用户在线时长(单位/小时) </input>
-					</div>
-					<div class="col-md-9">
-						<h6>(公式：当期(7天)所有活跃用户在线时长总和/当期(7天)活跃用户数)</h6>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox">8.付费用户在线时长(单位/小时) </input>
-					</div>
-					<div class="col-md-9">
-						<h6>(公式：当期(7天)所有付费用户在线时长总和/当期(7天)付费用户数)。</h6>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >9.新增活跃用户充值率</input>
-					</div>
-					<div class="col-md-9">
-						<h6>(公式：(本月内有充值的新增登录用户/本月总新增登录用户)*100%) </h6>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3  gw-inddexname">
-						<input type="checkbox" >10.新增活跃用户高活跃率： </input>
-					</div>
-					<div class="col-md-9">
-						<h6>(公式：(本月新增登陆用户中的高活跃用户数/本月新增登陆用户数)*100%) </h6>
+						<h6></h6>
 					</div>
 				</div>
 			</form>				

@@ -18,6 +18,9 @@ public class SystemLog {
 	private int id;
 
 	private String city;
+	
+	//系统分类
+	private String sysClass;
 
 	private String sysname;
 	
@@ -38,6 +41,14 @@ public class SystemLog {
 
 	public int getId() {
 		return id;
+	}
+
+	public String getSysClass() {
+		return sysClass;
+	}
+
+	public void setSysClass(String sysClass) {
+		this.sysClass = sysClass;
 	}
 
 	public void setId(int id) {

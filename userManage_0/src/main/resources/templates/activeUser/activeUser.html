@@ -23,6 +23,47 @@
 </head>
 
 <body th:fragment="gwActivUser">
-	active User
+	<!--活跃系统-->
+	<div><h3 style="font-weight: 20px;font-family: '微软雅黑';">用户活跃情况</h3></div>
+	<div class="col-md-12">
+	<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							用户名
+						</th>
+						<th>
+							工号
+						</th>
+						<th>
+							月累计登录次数
+						</th>
+						<th>
+							累计登陆人次
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="userLog,iterStat : ${userLogs}">
+						<td th:text="${iterStat.index + 1}"></td>
+						<td th:text="${userLog.username}"></td>
+						<td th:text="${userLog.job_num}"></td>
+						<td th:text="${userLog.month_accum_login_num}"></td>
+						<td th:text="${userLog.accum_login_num}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
 </body>
 </html>
